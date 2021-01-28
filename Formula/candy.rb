@@ -62,17 +62,9 @@ class Candy < Formula
 
   def caveats
     <<~EOS
-      There is one last step before finishing the installation process.
-      You need to create a DNS resolver file in /etc/resolver/YOUR_DOMAIN
-
-          domain test
-          nameserver 127.0.0.1
-          port 25353
-          search_order 1
-          timeout 5
-
-      Creating the /etc/resolver directory requires superuser privileges.
-      You can set everything up with an one-liner
+      To finish the instllation, you need to create a DNS resolver file
+      in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
+      requires superuser privileges. You can set it up with an one-liner
 
           sudo candy setup
 
@@ -91,7 +83,7 @@ class Candy < Formula
           candy run
 
       A sample Candy config file is in #{etc/"candyconfig"}. You can
-      copy it to your home dir to override Candy's default setting
+      copy it to your home to override Candy's default setting
 
           cp #{etc/"candyconfig"} ~/.candyconfig
     EOS
