@@ -2,6 +2,8 @@ class Candy < Formula
   desc "Zero-config reverse proxy server"
   homepage "https://github.com/owenthereal/candy"
   head "https://github.com/owenthereal/candy.git"
+  url "https://github.com/owenthereal/candy/archive/v0.1.0.tar.gz"
+  sha256 "d0969e7cdd3cd3729ab5a19f3f91df0706543dcd9b51e067bf2af10b7ced1bfb"
 
   depends_on "go" => :build
 
@@ -64,11 +66,11 @@ class Candy < Formula
     <<~EOS
       To finish the installation, you need to create a DNS resolver file
       in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
-      requires superuser privileges. You can set it up with an one-liner
+      requires superuser privileges. You can set things up with an one-liner
 
           sudo candy setup
 
-      Or, execute this bash script
+      Or, you can execute this bash script
 
           sudo mkdir -p /etc/resolver && \\
             sudo chown -R $(whoami):$(id -g -n) /etc/resolver && \\
