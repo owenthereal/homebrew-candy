@@ -62,7 +62,7 @@ class Candy < Formula
 
   def caveats
     <<~EOS
-      To finish the instllation, you need to create a DNS resolver file
+      To finish the installation, you need to create a DNS resolver file
       in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
       requires superuser privileges. You can set it up with an one-liner
 
