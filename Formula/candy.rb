@@ -2,8 +2,8 @@ class Candy < Formula
   desc "Zero-config reverse proxy server"
   homepage "https://github.com/owenthereal/candy"
   head "https://github.com/owenthereal/candy.git"
-  url "https://github.com/owenthereal/candy/archive/v0.2.1.tar.gz"
-  sha256 "a26b84ea35e8aa3d37826dca8f5701e08ae8e4274b931ad9595931c0030f9b09"
+  url "https://github.com/owenthereal/candy/archive/v0.3.0.tar.gz"
+  sha256 "b1018f54ab4b15a19763004b85e8d1d5880e0c551ea1d23bfb7e22aac92de9e3"
 
   depends_on "go" => :build
 
