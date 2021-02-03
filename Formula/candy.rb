@@ -13,7 +13,7 @@ class Candy < Formula
     bin.install "build/candy"
     prefix.install_metafiles
     etc.install "example/candyconfig" => "candyconfig"
-    (etc/"resolver").install "example/test_resolver" => "candy-test"
+    (etc/"resolver").install "example/mac/candy-test" => "candy-test"
   end
 
   plist_options startup: true
@@ -29,30 +29,17 @@ class Candy < Formula
         <key>ProgramArguments</key>
         <array>
             <string>#{opt_bin}/candy</string>
-            <string>launch</string>
+            <string>run</string>
+            <string>--http-addr</string>
+            <string>:80</string>
+            <string>--https-addr</string>
+            <string>:443</string>
             <string>--dns-local-ip</string>
         </array>
         <key>KeepAlive</key>
         <true/>
         <key>RunAtLoad</key>
         <true/>
-        <key>Sockets</key>
-        <dict>
-            <key>Socket</key>
-            <dict>
-                <key>SockNodeName</key>
-                <string>0.0.0.0</string>
-                <key>SockServiceName</key>
-                <string>80</string>
-            </dict>
-            <key>SocketTLS</key>
-            <dict>
-                <key>SockNodeName</key>
-                <string>0.0.0.0</string>
-                <key>SockServiceName</key>
-                <string>443</string>
-            </dict>
-        </dict>
         <key>StandardOutPath</key>
         <string>#{var}/log/candy.log</string>
         <key>StandardErrorPath</key>
@@ -66,11 +53,12 @@ class Candy < Formula
     <<~EOS
       To finish the installation, you need to create a DNS resolver file
       in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
-      requires superuser privileges. You can set things up with an one-liner
+      and the config file requires superuser privileges. You can set things
+      up with an one-liner
 
           sudo candy setup
 
-      Or, you can execute this bash script
+      Alternatively, you can execute the following bash script
 
           sudo mkdir -p /etc/resolver && \\
             sudo chown -R $(whoami):$(id -g -n) /etc/resolver && \\
