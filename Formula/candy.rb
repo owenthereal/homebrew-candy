@@ -29,17 +29,30 @@ class Candy < Formula
         <key>ProgramArguments</key>
         <array>
             <string>#{opt_bin}/candy</string>
-            <string>run</string>
-            <string>--http-addr</string>
-            <string>:80</string>
-            <string>--https-addr</string>
-            <string>:443</string>
+            <string>launch</string>
             <string>--dns-local-ip</string>
         </array>
         <key>KeepAlive</key>
         <true/>
         <key>RunAtLoad</key>
         <true/>
+        <key>Sockets</key>	
+        <dict>	
+            <key>Socket</key>	
+            <dict>	
+                <key>SockNodeName</key>	
+                <string>0.0.0.0</string>	
+                <key>SockServiceName</key>	
+                <string>80</string>	
+            </dict>	
+            <key>SocketTLS</key>	
+            <dict>	
+                <key>SockNodeName</key>	
+                <string>0.0.0.0</string>	
+                <key>SockServiceName</key>	
+                <string>443</string>	
+            </dict>	
+        </dict>
         <key>StandardOutPath</key>
         <string>#{var}/log/candy.log</string>
         <key>StandardErrorPath</key>
