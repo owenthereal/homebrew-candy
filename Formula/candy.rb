@@ -79,7 +79,7 @@ class Candy < Formula
 
       To have launchd start Candy now and restart at login
 
-          brew servies start candy
+          brew services start candy
 
       Or, if you don't want/need a background service you can just run
 
