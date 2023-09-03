@@ -16,50 +16,14 @@ class Candy < Formula
     (etc/"resolver").install "example/mac/candy-test" => "candy-test"
   end
 
-  plist_options startup: true
-
-  def plist
-    <<~EOS
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>#{plist_name}</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>#{opt_bin}/candy</string>
-            <string>launch</string>
-            <string>--dns-local-ip</string>
-        </array>
-        <key>KeepAlive</key>
-        <true/>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>Sockets</key>	
-        <dict>	
-            <key>Socket</key>	
-            <dict>	
-                <key>SockNodeName</key>	
-                <string>0.0.0.0</string>	
-                <key>SockServiceName</key>	
-                <string>80</string>	
-            </dict>	
-            <key>SocketTLS</key>	
-            <dict>	
-                <key>SockNodeName</key>	
-                <string>0.0.0.0</string>	
-                <key>SockServiceName</key>	
-                <string>443</string>	
-            </dict>	
-        </dict>
-        <key>StandardOutPath</key>
-        <string>#{var}/log/candy.log</string>
-        <key>StandardErrorPath</key>
-        <string>#{var}/log/candy.log</string>
-    </dict>
-</plist>
-    EOS
+  def service
+    run [opt_bin/"candy", "launch", "--dns-local-ip"]
+    keep_alive true
+    run_at_load true
+    sockets "tcp://0.0.0.0:80"
+    working_dir HOMEBREW_PREFIX
+    log_path var/"log/candy/output.log"
+    error_log_path var/"log/candy/output.log"
   end
 
   def caveats
