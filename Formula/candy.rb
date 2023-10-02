@@ -5,15 +5,15 @@
 class Candy < Formula
   desc "Zero-config reverse proxy server"
   homepage "https://github.com/owenthereal/candy"
-  version "0.6.0"
+  version "0.6.1"
   license "Apache 2.0"
 
   depends_on "nss"
 
   on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.0/candy_darwin_arm64.tar.gz"
-      sha256 "45c0579ce6e113f19ab4459f85e58b461d3248418a961ac376bd42320d15983b"
+    if Hardware::CPU.intel?
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.1/candy_darwin_amd64.tar.gz"
+      sha256 "2128a28b636b9310e2b149981b658d64818a7c757dcc266bb504e91f6d48caf9"
 
       def install
         bin.install "bin/candy"
@@ -22,9 +22,9 @@ class Candy < Formula
         (etc/"resolver").install "example/mac/candy-test" => "candy-test"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.0/candy_darwin_amd64.tar.gz"
-      sha256 "0840dc29479367fcf11af6d998c63e1a4fed1ad89ba6af30d64aa89e5b191dfb"
+    if Hardware::CPU.arm?
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.1/candy_darwin_arm64.tar.gz"
+      sha256 "77b4f3b71c0d32ac60d4f177b27b81d68031b0f1b5116c6a3146efac5309d17b"
 
       def install
         bin.install "bin/candy"
@@ -37,8 +37,8 @@ class Candy < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.0/candy_linux_amd64.tar.gz"
-      sha256 "3b4515d234d411efb8ce5c310c79a0e39358f11b61cc308c4ea875bd3187ca28"
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.1/candy_linux_amd64.tar.gz"
+      sha256 "82540774c6546000d86d9f98cbf15975b7f67aa13b33c3c8055f87a6d4cb41d8"
 
       def install
         bin.install "bin/candy"
@@ -48,8 +48,8 @@ class Candy < Formula
       end
     end
     if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.0/candy_linux_armv6.tar.gz"
-      sha256 "98682158246a92b6a3cc084fbe75aeb4ac3c207ce6adf7fe62787a6b1a3bc7d3"
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.1/candy_linux_armv6.tar.gz"
+      sha256 "5f6ea1707569b72c60ac4d4f6c1adc3283d50265e16bc319d44452e3b80ef66e"
 
       def install
         bin.install "bin/candy"
@@ -59,8 +59,8 @@ class Candy < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.0/candy_linux_arm64.tar.gz"
-      sha256 "b2ee3acb37ad7e6d87a301af7bc41ca4b7bc4e0b574a8b4ccb0b5d23d7f236c8"
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.1/candy_linux_arm64.tar.gz"
+      sha256 "93e82adb24e3b40a7d2fc2885141db6c2a0d6e0a1fd4120944577c3b26bddb46"
 
       def install
         bin.install "bin/candy"
