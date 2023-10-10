@@ -5,15 +5,15 @@
 class Candy < Formula
   desc "Zero-config reverse proxy server"
   homepage "https://github.com/owenthereal/candy"
-  version "0.6.2"
+  version "0.6.3"
   license "Apache 2.0"
 
   depends_on "nss"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.2/candy_darwin_amd64.tar.gz"
-      sha256 "e8a3a4a66c781a2ab2250014d3f2a91461edbb8d5b5f55bfc7859bb860f21aca"
+    if Hardware::CPU.arm?
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.3/candy_darwin_arm64.tar.gz"
+      sha256 "41d7c3baea51999cc17cc4e76bb83e67a39fa6256c8b8563c5f930a48c856f02"
 
       def install
         bin.install "bin/candy"
@@ -22,9 +22,9 @@ class Candy < Formula
         (etc/"resolver").install "example/mac/candy-test" => "candy-test"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.2/candy_darwin_arm64.tar.gz"
-      sha256 "1c6dbf448f0a596a49a955c1e3b98899992c109e10b1a24cbf02c153318f8544"
+    if Hardware::CPU.intel?
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.3/candy_darwin_amd64.tar.gz"
+      sha256 "4ffb977adbe142909ebf3a0de9de674d4c06f40080d79f8d934ddba85032a7d0"
 
       def install
         bin.install "bin/candy"
@@ -36,9 +36,20 @@ class Candy < Formula
   end
 
   on_linux do
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.3/candy_linux_arm64.tar.gz"
+      sha256 "93b5b6554fd8a7878078026ed4b49d27c2764f4f7801c200df5e744a06625e7c"
+
+      def install
+        bin.install "bin/candy"
+        prefix.install_metafiles
+        etc.install "example/candyconfig" => "candyconfig"
+        (etc/"resolver").install "example/mac/candy-test" => "candy-test"
+      end
+    end
     if Hardware::CPU.intel?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.2/candy_linux_amd64.tar.gz"
-      sha256 "40fa92d81bfee9a8eb933f8b1129de91dff72d7c1fb590d55a1eabac8a43c23a"
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.3/candy_linux_amd64.tar.gz"
+      sha256 "5b50df6fb84a698ca2742fc45ea7af781dbd2f0282a1e9d81f1753590195434e"
 
       def install
         bin.install "bin/candy"
@@ -48,19 +59,8 @@ class Candy < Formula
       end
     end
     if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.2/candy_linux_armv6.tar.gz"
-      sha256 "fe0558cf76e3bfa60bcecf042ea3268936d6747bd23b6de0a08e8813fd472bbc"
-
-      def install
-        bin.install "bin/candy"
-        prefix.install_metafiles
-        etc.install "example/candyconfig" => "candyconfig"
-        (etc/"resolver").install "example/mac/candy-test" => "candy-test"
-      end
-    end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/owenthereal/candy/releases/download/v0.6.2/candy_linux_arm64.tar.gz"
-      sha256 "ea620c329390930ee86df184a1973704ca7abbf22d1f0ea9077beb587e9c4d12"
+      url "https://github.com/owenthereal/candy/releases/download/v0.6.3/candy_linux_armv6.tar.gz"
+      sha256 "e09c4e7560a03a2d42b3ff57a6795aca7f3887e41d6795d49d7e1b8e4685d009"
 
       def install
         bin.install "bin/candy"
@@ -75,33 +75,31 @@ class Candy < Formula
 
   def caveats
     <<~EOS
-      <<~EOS
-        To finish the installation, you need to create a DNS resolver file
-        in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
-        and the config file requires superuser privileges. You can set things
-        up with an one-liner
+      To finish the installation, you need to create a DNS resolver file
+      in /etc/resolver/YOUR_DOMAIN. Creating the /etc/resolver directory
+      and the config file requires superuser privileges. You can set things
+      up with an one-liner
 
-            sudo candy setup
+          sudo candy setup
 
-        Alternatively, you can execute the following bash script
+      Alternatively, you can execute the following bash script
 
-            sudo mkdir -p /etc/resolver && \\
-              sudo chown -R $(whoami):$(id -g -n) /etc/resolver && \\
-              cp #{etc/"resolver/candy-test"} /etc/resolver/candy-test
+          sudo mkdir -p /etc/resolver && \\
+            sudo chown -R $(whoami):$(id -g -n) /etc/resolver && \\
+            cp #{etc/"resolver/candy-test"} /etc/resolver/candy-test
 
-        To have launchd start Candy now and restart at login
+      To have launchd start Candy now and restart at login
 
-            brew services start candy
+          brew services start candy
 
-        Or, if you don't want/need a background service you can just run
+      Or, if you don't want/need a background service you can just run
 
-            candy run
+          candy run
 
-        A sample Candy config file is in #{etc/"candyconfig"}. You can
-        copy it to your home to override Candy's default setting
+      A sample Candy config file is in #{etc/"candyconfig"}. You can
+      copy it to your home to override Candy's default setting
 
-            cp #{etc/"candyconfig"} ~/.candyconfig
-      EOS
+          cp #{etc/"candyconfig"} ~/.candyconfig
     EOS
   end
 
